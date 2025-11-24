@@ -3,14 +3,17 @@ const axios = require('axios');
 const app = express();
 const port = 80;
 
-const API_URL = 'http://api-service:5000/api/data';
+// const API_URL = 'http://api-service:5000/api/data';
+
+const API_URL = process.env.BACKEND_URL || 'http://api-service:5000/api/data';
+console.log(`Using backend API URL: ${API_URL}`);
 
 app.get('/', async (req, res) => {
-    try {
-        const response = await axios.get(API_URL);
-        const apiData = response.data;
+  try {
+    const response = await axios.get(API_URL);
+    const apiData = response.data;
 
-        res.send(`
+    res.send(`
             <html>
         <head><title>Demo Microservice</title></head>
         <body style="font-family: sans-serif; padding: 20px;">
@@ -24,15 +27,15 @@ app.get('/', async (req, res) => {
         </body>
       </html>
     `);
-    } catch (error) {
-        res.status(500).send(`
+  } catch (error) {
+    res.status(500).send(`
       <h1>Gagal Menghubungi Backend API!</h1>
       <p>Error: ${error.message}</p>
       <p>Pastikan backend service 'api-service' sudah berjalan di port 5000.</p>
     `);
-    }
+  }
 });
 
 app.listen(port, () => {
-    console.log(`Web service listening on port ${port}`);
+  console.log(`Web service listening on port ${port}`);
 });

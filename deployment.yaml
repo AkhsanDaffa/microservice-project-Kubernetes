@@ -55,10 +55,17 @@ spec:
     spec:
       containers:
       - name: frontend-web
-        image: web-service:v1
+        image: web-service:v2
         imagePullPolicy: Never
         ports:
         - containerPort: 80
+
+        env:
+        - name: BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: backend-url-config
 
 ---
 # 4. Service Untuk Frontend Web (web-service)
