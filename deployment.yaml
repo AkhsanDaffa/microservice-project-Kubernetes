@@ -15,10 +15,16 @@ spec:
     spec:
       containers:
       - name: backend-api
-        image: api-service:v2
+        image: api-service:v4
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
+
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            cpu: "500m"
 
         livenessProbe:
           httpGet:
