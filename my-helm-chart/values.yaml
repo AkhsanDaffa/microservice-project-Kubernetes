@@ -1,0 +1,12 @@
+postgres:
+  image: postgres:13
+  user: postgres
+  password: "paswordrahasia"
+  storageSize: 1Gi
+  databaseName: flask_db
+
+api:
+  image: api-service:v5
+  replicaCount: 1
+  serviceType: NodePort
+  nodePort: 30005

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: api-deployment
 spec:
-  replicas: 1
+  replicas: {{ .Values.api.replicas }}
   selector:
     matchLabels:
       app: api-service
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend-api
-        image: api-service:v5
+        image: {{ .Values.api.image }}
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
@@ -23,9 +23,9 @@ spec:
         - name: DB_HOST
           value: postgres-service
         - name: DB_NAME
-          value: flask_db
+          value: {{ .Values.postgres.databaseName }}
         - name: DB_USER
-          value: postgres
+          value: {{ .Values.postgres.user }}
         - name: DB_PASS
           valueFrom:
             secretKeyRef:

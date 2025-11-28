@@ -14,20 +14,20 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: postgres:13
+        image: {{ .Values.postgres.image }}
         ports:
         - containerPort: 5432
 
         env:
         - name: POSTGRES_USER
-          value: postgres
+          value: {{ .Values.postgres.user }}
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: postgres-secret
               key: postgres-password
         - name: POSTGRES_DB
-          value: flask_db
+          value: {{ .Values.postgres.databaseName }}
         
         volumeMounts:
         - name: postgres-storage
